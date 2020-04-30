@@ -5,32 +5,37 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 
 @Repository
-public class FakeRepo implements FakeRepoInterface{
+public class FakeRepo implements FakeRepoInterface {
     ArrayList<User> users = new ArrayList<>();
+
     @Override
-    public String insertUser(long Id, String name, String surname) {
-        users.add(new User(Id,name,surname));
-        return name+ " successfully added";
+    public User insertUser(User user) {
+        user= new User();
+        users.add(user);
+        System.out.println("Successfully added");
+        return user;
     }
 
     @Override
-    public String findUserById(long Id) {
+    public User findUserById(long Id) {
         for (User user: users) {
             long currentUserId = user.getId();
             if(currentUserId == Id){
-                return "Hello "+user.getName();
+                System.out.println("Hello "+user.getName());
+                return user;
             }
         }
         return null;
     }
 
     @Override
-    public String deleteUser(long Id) {
+    public User deleteUser(long Id) {
         for (User user:users) {
             long currentUserId = user.getId();
             if(currentUserId == Id){
                 users.remove(user);
-                return user.getName()+ " successfully deleted";
+                System.out.println(user.getName()+" removed");
+                return user;
             }
         }
         return null;

@@ -1,7 +1,7 @@
 package com.springboot.part3;
 
 public interface UserService {
-    String addUser(long Id, String name, String surname);
-    String removeUser(long Id);
-    String getUser(long Id);
+    User addUser(User user);
+    User removeUser(long Id);
+    User getUser(long Id);
 }

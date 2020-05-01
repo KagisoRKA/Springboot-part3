@@ -1,4 +1,5 @@
 package com.springboot.part3;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -8,11 +9,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @Service
 public class UserServiceImpl implements UserService {
-    //dependency injection
-    public FakeRepo fakeRepo = new FakeRepo();
+    @Autowired
+    public FakeRepoInterface fakeRepo;
     @Override
-    public User addUser(User user) {
-        return fakeRepo.insertUser(user);
+    public User addUser(long Id, String name, String surname) {
+        return fakeRepo.insertUser(Id,name,surname);
     }
     @Override
     @Cacheable("name")
@@ -28,7 +29,6 @@ public class UserServiceImpl implements UserService {
         }
         return fakeRepo.findUserById(Id);
     }
-
     @Override
     public User removeUser(long Id) {
         return fakeRepo.deleteUser(Id);

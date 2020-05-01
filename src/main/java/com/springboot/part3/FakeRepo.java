@@ -9,10 +9,13 @@ public class FakeRepo implements FakeRepoInterface {
     ArrayList<User> users = new ArrayList<>();
 
     @Override
-    public User insertUser(User user) {
-        user= new User();
+    public User insertUser(long Id, String name, String surname) {
+        User user= new User();
+        user.setId(Id);
+        user.setName(name);
+        user.setSurname(surname);
         users.add(user);
-        System.out.println("Successfully added");
+        System.out.println(name +" successfully added");
         return user;
     }
 

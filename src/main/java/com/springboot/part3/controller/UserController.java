@@ -11,19 +11,19 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    ArrayList<User> users = new ArrayList<>();
     @Autowired
-    FakeRepoInterface fakeRepoInterface;
-    @PostMapping("/adduser")
+    FakeRepoInterface repoInterface;
+    @PostMapping("/add")
     public User newUser(@RequestBody User user){
-        return fakeRepoInterface.insertUser(user);
+        return repoInterface.insertUser(user.getId(),user.getName(),user.getSurname());
     }
-    @GetMapping("/getUser/{id}")
+    @GetMapping("/retrieve/{id}")
     public ResponseEntity<User> getUser(@PathVariable(value = "id")long userId){
-        return new ResponseEntity(fakeRepoInterface.findUserById(userId), HttpStatus.OK);
+        return new ResponseEntity(repoInterface.findUserById(userId), HttpStatus.OK);
     }
-//    @DeleteMapping("/{id}")//    public ResponseEntity<String> deleteUser(@PathVariable(value = "id")long userId){
-//        fakeRepoInterface.deleteUser(userId);
-//        return new ResponseEntity("Success!", HttpStatus.OK);
-//    }
+    @DeleteMapping("/remove/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable(value = "id")long userId){
+        repoInterface.deleteUser(userId);
+        return new ResponseEntity("Success!", HttpStatus.OK);
+    }
 }
